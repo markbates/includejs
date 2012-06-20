@@ -34,6 +34,8 @@ To use this outside of a Rails application simply copy the `vendor/assets/javasc
 BazModule =
   sayHi: ->
     "Hello #{@name}!"
+  # If there is an 'included' function it will
+  # be called when the module is included.
   included: (klass) ->
     klass.baz = "Baz!!"
 
@@ -57,6 +59,8 @@ BazModule = {
   sayHi: function() {
     return "Hello " + this.name + "!";
   },
+  // If there is an 'included' function it will
+  // be called when the module is included.
   included: function(klass) {
     klass.baz = "Baz!!";
   }
