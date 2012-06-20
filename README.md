@@ -1,6 +1,6 @@
 # Includejs
 
-Allows you to inject functions and variables from other JavaScript objects into your current object. This is similar to the functionality provided by `_.extend` in the [Underscore.js](http://documentcloud.github.com/underscore/#extend) library, the difference being that Includejs will binded the functions to the current object.
+Allows you to inject functions and properties from other JavaScript objects into your current object. This is similar to the functionality provided by `_.extend` in the [Underscore.js](http://documentcloud.github.com/underscore/#extend) library, the difference being that Includejs will bind the functions to the current object, helpful well dealing with callback functions.
 
 ## Installation
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    includejs (1.0.0)
+    includejs (1.0.2)
 
 GEM
   remote: https://rubygems.org/

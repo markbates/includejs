@@ -13,3 +13,7 @@ end
 task :default do
   system "jasmine-headless-webkit -c"
 end
+
+task :build do
+  system "gem build includejs.gemspec"
+end
