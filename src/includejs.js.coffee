@@ -13,6 +13,15 @@ https://github.com/markbates/includejs
   __binder = (fn, me) ->
     return ->
       return fn.apply(me, arguments)
+
+  ###
+  Since we can't assume there are any other
+  libraries available to us, let's create our
+  own function to check whether an object is a
+  function or not.
+  ###
+  __isFunction = (fn) ->
+   !!(fn and fn.constructor and fn.call and fn.apply)
   
   ###
   Loop through all of the modules that are passed in.
@@ -33,4 +42,16 @@ https://github.com/markbates/includejs
       original object and bind it together.
       ###
       unless key in ["included", "include"]
-        klass[key] = __binder(value, klass)
+        klass[key] = 
+          if __isFunction(value)
+            ###
+            If the value is a function then let's
+            bind it to the current object.
+            ###
+            __binder(value, klass)
+          else
+            ###
+            The value isn't a function, so let's just
+            set it and forget it.
+            ###
+            value

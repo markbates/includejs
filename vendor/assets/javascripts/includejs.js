@@ -11,7 +11,7 @@ https://github.com/markbates/includejs
     __slice = [].slice;
 
   this.include = function() {
-    var key, klass, mod, modules, value, __binder, _i, _len, _results;
+    var key, klass, mod, modules, value, __binder, __isFunction, _i, _len, _results;
     klass = arguments[0], modules = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
     /*
       Since we can't assume there are any other
@@ -24,6 +24,16 @@ https://github.com/markbates/includejs
       return function() {
         return fn.apply(me, arguments);
       };
+    };
+    /*
+      Since we can't assume there are any other
+      libraries available to us, let's create our
+      own function to check whether an object is a
+      function or not.
+    */
+
+    __isFunction = function(fn) {
+      return !!(fn && fn.constructor && fn.call && fn.apply);
     };
     /*
       Loop through all of the modules that are passed in.
@@ -53,7 +63,23 @@ https://github.com/markbates/includejs
           */
 
           if (key !== "included" && key !== "include") {
-            _results1.push(klass[key] = __binder(value, klass));
+            _results1.push(klass[key] = (function() {
+              if (__isFunction(value)) {
+                /*
+                            If the value is a function then let's
+                            bind it to the current object.
+                */
+
+                return __binder(value, klass);
+              } else {
+                /*
+                            The value isn't a function, so let's just
+                            set it and forget it.
+                */
+
+                return value;
+              }
+            })());
           } else {
             _results1.push(void 0);
           }

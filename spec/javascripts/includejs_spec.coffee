@@ -14,6 +14,11 @@ describe "include", ->
     included: (klass) ->
       klass.baz = "Baz!!"
 
+  FuBarModule =
+    sayHi: ->
+      "Hello!"
+    fu: 'Bar!'
+
   it "includes functions from the module into a class", ->
     class Foo
       constructor: ->
@@ -57,7 +62,7 @@ describe "include", ->
   it "works with plain objects as well", ->
     foo = {}
     include(foo, BazModule)
-    
+
     expect(foo.sayHi()).toEqual("Hello undefined!")
 
     foo.name = "Mark"
@@ -66,3 +71,12 @@ describe "include", ->
     x = (fn) -> fn()
 
     expect(x(foo.sayHi)).toEqual("Hello Mark!")
+
+  it "handles variables just fine", ->
+    class Foo
+      constructor: ->
+        include(@, FuBarModule)
+
+    foo = new Foo()
+    expect(foo.sayHi()).toEqual("Hello!")
+    expect(foo.fu).toEqual("Bar!")
