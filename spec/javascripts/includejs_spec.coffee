@@ -53,3 +53,16 @@ describe "include", ->
     x = (fn) -> fn()
 
     expect(x(foo.sayHi)).toEqual("Hello Mark!")
+
+  it "works with plain objects as well", ->
+    foo = {}
+    include(foo, BazModule)
+    
+    expect(foo.sayHi()).toEqual("Hello undefined!")
+
+    foo.name = "Mark"
+    expect(foo.sayHi()).toEqual("Hello Mark!")
+
+    x = (fn) -> fn()
+
+    expect(x(foo.sayHi)).toEqual("Hello Mark!")

@@ -1,3 +1,8 @@
+###
+Includejs
+
+https://github.com/markbates/includejs
+###
 @include = (klass, modules...) =>
   __binder = (fn, me) ->
     return ->
